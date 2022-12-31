@@ -40,6 +40,7 @@ class MyHomePage extends StatelessWidget {
               collapseText: 'show less',
               maxLines: 1,
               linkColor: Colors.blue,
+              isSelectable: true,
             ),
           ],
         ),
