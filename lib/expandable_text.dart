@@ -23,6 +23,7 @@ class ExpandableText extends StatefulWidget {
     this.linkStyle,
     this.prefixText,
     this.prefixStyle,
+    this.prefixIcon,
     this.onPrefixTap,
     this.urlStyle,
     this.onUrlTap,
@@ -56,6 +57,7 @@ class ExpandableText extends StatefulWidget {
   final TextStyle? linkStyle;
   final String? prefixText;
   final TextStyle? prefixStyle;
+  final Icon? prefixIcon;
   final VoidCallback? onPrefixTap;
   final TextStyle? urlStyle;
   final StringCallback? onUrlTap;
@@ -150,6 +152,13 @@ class ExpandableTextState extends State<ExpandableText> with TickerProviderState
 
     final prefixText = widget.prefixText != null && widget.prefixText!.isNotEmpty ? '${widget.prefixText} ' : '';
 
+    final prefixIcon = widget.prefixIcon != null
+        ? Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: widget.prefixIcon,
+          )
+        : Text("");
+
     final link = TextSpan(
       children: [
         if (!_expanded)
@@ -174,6 +183,11 @@ class ExpandableTextState extends State<ExpandableText> with TickerProviderState
             ],
           ),
       ],
+    );
+
+    final icon = WidgetSpan(
+      child: prefixIcon,
+      alignment: PlaceholderAlignment.middle,
     );
 
     final prefix = TextSpan(
@@ -241,14 +255,18 @@ class ExpandableTextState extends State<ExpandableText> with TickerProviderState
 
           textSpan = TextSpan(
             style: effectiveTextStyle,
-            children: <TextSpan>[
+            children: [
               prefix,
+              icon,
               text,
               link,
             ],
           );
         } else {
-          textSpan = content;
+          textSpan = TextSpan(
+            children: [prefix, icon, text],
+            style: effectiveTextStyle,
+          );
         }
 
         late Widget richText;

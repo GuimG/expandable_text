@@ -41,6 +41,8 @@ class MyHomePage extends StatelessWidget {
               maxLines: 1,
               linkColor: Colors.blue,
               isSelectable: true,
+              prefixText: "Guim",
+              prefixStyle: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
